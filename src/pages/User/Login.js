@@ -51,9 +51,9 @@ const Login = () => {
           {/* Section 1 Content */}
           <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
             <div>
-              <h2 className="text-4xl font-bold text-white">Welcome,</h2>
-              <p className="max-w-xl mt-3 text-gray-300">
-                Let's Connect! Share your memories with the world.
+              <h2 className="text-8xl font-bold text-white">Hello,</h2>
+              <p className="max-w-xl mt-3 text-7xl text-gray-300">
+                Welcome to the Feed App
               </p>
             </div>
           </div>
