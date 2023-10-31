@@ -129,15 +129,19 @@ export const resetPasswordApi = async (token, password) => {
     return response;
   }
 };
-
+//takes the token in as a parameter, when you want to hit the sessions api you need a token to do it because it's protected
 export const sessionApi = async (token) => {
+  //lets define a response variable. frame response will hold the frame response
   let response = frameResponse();
   try {
     const url = `${API_BASE_URL}/user/get`;
+    // defining api response variable = awaiting for a reponse, this is when you tell it to wait for the get request that is taking in a url and a token).
+    //frame token returns the token as a string.
     const apiResponse = await axios.get(url, {
       headers: { Authorization: frameToken(token) },
     });
     if (apiResponse.status === 200) {
+      //frame response has two variables one is the status and one is the payload
       response = frameResponse(1, apiResponse.data);
     }
   } catch (err) {

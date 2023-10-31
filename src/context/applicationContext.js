@@ -7,13 +7,14 @@ const AppContextProvider = ({ children }) => {
   const [cookies, setCookie, removeCookie] = useCookies(["appToken"]);
   const [userSessionData, setUserSessionData] = useState(undefined);
   const setUserData = (userData) => setUserSessionData(userData);
+  //getting token from header and savigng it
   const setSession = (token) => {
     setCookie("appToken", token, {
       path: "/",
       maxAge: 900, // 15 minutes
     });
   };
-
+  // gets the token to access it from the cookie.
   const getSession = () => {
     const token = cookies.appToken || null;
     return token;
