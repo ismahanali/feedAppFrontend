@@ -188,3 +188,24 @@ export const updatePublicProfileApi = async (
     return response;
   }
 };
+
+export const getOthersFeedsApi = async (token, pageNumber) => {
+  let response = frameResponse();
+  try {
+    // page number/page size pagination , tells us the "page size" is the number we want to see on whatever page size
+    const url = `${API_BASE_URL}/feeds/other/${pageNumber}/5`;
+    const apiResponse = await axios.get(url, {
+      headers: { Authorization: frameToken(token) },
+    });
+    if (apiResponse.status === 200) {
+      response = frameResponse(1, apiResponse.data);
+    }
+  } catch (err) {
+    if (err.response) {
+      response = frameResponse(0, err.response.data.message);
+    }
+    console.log(err);
+  } finally {
+    return response;
+  }
+};
