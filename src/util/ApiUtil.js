@@ -264,6 +264,7 @@ export const addFeedMetaDataApi = async (token, feedId, isLike, comment) => {
 
 export const getMyFeedsApi = async (token, pageNumber) => {
   let response = frameResponse();
+  console.log("response found");
 
   try {
     const url = `${API_BASE_URL}/feeds/user/${pageNumber}/5`;
@@ -279,6 +280,42 @@ export const getMyFeedsApi = async (token, pageNumber) => {
     }
     console.log(err);
   } finally {
+    console.log("response found");
     return response;
   }
+};
+
+export const updateBasicProfileApi = async (
+  token,
+  password,
+  emailId,
+  firstName,
+  lastName,
+  phone
+) => {
+  let response = frameResponse();
+  try {
+    const url = `${API_BASE_URL}/user/update`;
+    const apiResponse = await axios.post(
+      url,
+      {
+        password,
+        emailId,
+        firstName,
+        lastName,
+        phone,
+      },
+      { headers: { Authorization: frameToken(token) } }
+    );
+    if (apiResponse.status === 200) {
+      response = frameResponse(1, apiResponse.data);
+    }
+  } catch (err) {
+    if (err.response) {
+      response = frameResponse(0, err.response.data.message);
+    }
+    console.log(err);
+  } finally {
+    return response;
+  
 };
