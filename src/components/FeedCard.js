@@ -35,6 +35,7 @@ const FeedCard = ({
     for (const metaData of feedMetaData) {
       const { isLike, createdOn, comment, user } = metaData;
       if (isLike) {
+        console.log("was liked");
         likesCount++;
         if (!userLiked && userData.userId === user.userId) {
           setUserLiked(true);
