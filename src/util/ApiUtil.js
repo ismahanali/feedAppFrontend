@@ -317,5 +317,5 @@ export const updateBasicProfileApi = async (
     console.log(err);
   } finally {
     return response;
-  
+  }
 };

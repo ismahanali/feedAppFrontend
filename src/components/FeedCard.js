@@ -172,7 +172,7 @@ const FeedCard = ({
               className={`h-4 w-4 ${
                 userLiked ? "text-red-500" : "text-gray-500"
               }`}
-              fill="none"
+              fill="red"
               viewBox="0 0 24 24"
               stroke="currentColor"
               stroke-width="2"
