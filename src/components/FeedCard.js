@@ -5,7 +5,7 @@ import Moment from "react-moment";
 
 import { AppContext } from "../context/applicationContext";
 
-import { addFeedMetaDataApi } from "../util/ApiUtil";
+import { addFeedMetaDataApi, deleteFeedApi } from "../util/ApiUtil";
 
 const FeedCard = ({
   feedId,
@@ -16,6 +16,7 @@ const FeedCard = ({
   firstName,
   lastName,
   profilePicture,
+  loadOnDelete = undefined,
   feedMetaData = [],
 }) => {
   const formikRef = useRef();
@@ -124,6 +125,17 @@ const FeedCard = ({
     addFeedMetaData(false, values.comment);
   };
 
+  const deleteFeed = async () => {
+    if (!isFetching) {
+      setIsFetching(true);
+      const apiResponse = await deleteFeedApi(token, feedId);
+      if (apiResponse.status === 1) {
+        loadOnDelete(0);
+      }
+      setIsFetching(false);
+    }
+  };
+
   const AddCommentSchema = Yup.object().shape({
     comment: Yup.string().required("Required"),
   });
@@ -156,6 +168,22 @@ const FeedCard = ({
         </div>
       </div>
       {/* {#DeleteFeedButton Section} */}
+      {loadOnDelete && (
+        <div className="flex flex-col justify-center m-5" onClick={deleteFeed}>
+          <span className="transition ease-out duration-300 hover:bg-gray-50 bg-gray-100 h-8 px-2 py-2 text-center rounded-full text-gray-100 cursor-pointer">
+            <svg
+              className="h-4 w-4 text-gray-500"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M7 21q-.825 0-1.413-.588T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.588 1.413T17 21H7ZM17 6H7v13h10V6ZM9 17h2V8H9v9Zm4 0h2V8h-2v9ZM7 6v13V6Z"
+              />
+            </svg>
+          </span>
+        </div>
+      )}
       <div className="border-b border-gray-100"></div>
       {/* {#CardBody Section} */}
       <div className="text-gray-400 font-medium text-sm mb-7 mt-6 mx-3 px-2">
